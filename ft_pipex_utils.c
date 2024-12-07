@@ -6,7 +6,7 @@
 /*   By: souaammo <souaammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 14:43:43 by souaammo          #+#    #+#             */
-/*   Updated: 2024/12/07 14:43:44 by souaammo         ###   ########.fr       */
+/*   Updated: 2024/12/07 18:25:46 by souaammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	return (res);
 }
 
-static int	ft_word_count(const char *str, char c)
+int	ft_word_count(const char *str, char c)
 {
 	int		count;
 	size_t	i;
@@ -110,7 +110,7 @@ static int	ft_word_count(const char *str, char c)
 	return (count);
 }
 
-static void	*ft_free(char **str, int count)
+void	*ft_free(char **str, int count)
 {
 	while (count > 0)
 	{

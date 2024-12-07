@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_pipex.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: souaammo <souaammo@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/07 18:19:23 by souaammo          #+#    #+#             */
+/*   Updated: 2024/12/07 18:23:16 by souaammo         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_pipex.h"
 
 void	ft_error(char *msgerror)
@@ -48,7 +60,6 @@ void	ft_pipex(int fd1, char *cmd1, char *cmd2, int fd2)
 	pid = fork();
 	if (pid < 0)
 		ft_error("Fork error");
-
 	if (pid == 0)
 	{
 		close(pipefd[1]);
@@ -56,7 +67,7 @@ void	ft_pipex(int fd1, char *cmd1, char *cmd2, int fd2)
 		dup2(pipefd[0], 0);
 		close(pipefd[0]);
 		ft_execute_cmd(cmd2);
-        exit(0);
+		exit (0);
 	}
 	else
 	{
@@ -65,9 +76,8 @@ void	ft_pipex(int fd1, char *cmd1, char *cmd2, int fd2)
 		dup2(pipefd[1], 1);
 		close(pipefd[1]);
 		ft_execute_cmd(cmd1);
-        wait(NULL);
+		wait(NULL);
 	}
-
 	close(pipefd[0]);
 	close(pipefd[1]);
 }
