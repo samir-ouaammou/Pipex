@@ -6,7 +6,7 @@
 /*   By: souaammo <souaammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 11:30:27 by souaammo          #+#    #+#             */
-/*   Updated: 2024/12/06 11:32:24 by souaammo         ###   ########.fr       */
+/*   Updated: 2024/12/07 14:43:40 by souaammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,9 @@
 #include <fcntl.h>
 #include <errno.h>
 #include <sys/wait.h>
+
+size_t	ft_strlen(const char *str);
+char	**ft_split(char const *s, char c);
+char	*ft_strcat(char *dst, const char *src);
 
 #endif

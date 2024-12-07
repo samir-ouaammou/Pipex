@@ -1,50 +1,96 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_pipex.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: souaammo <souaammo@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/06 11:32:52 by souaammo          #+#    #+#             */
-/*   Updated: 2024/12/07 09:19:43 by souaammo         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "ft_pipex.h"
 
-int    ft_checkcmd(char *cmd)
+void    ft_error(char *msgerror)
 {
-    char    *temp;
-    
-    temp = malloc(10 + strlen(cmd));
-    if (!temp)
-        return (42);
-    temp[0] = '\0';
-    strcat(temp, "/usr/bin/");
-    strcat(temp, cmd);
-    if (access(temp, X_OK) < 0)
-        return (42);
-    return (1337);
+    perror(msgerror);
+    exit(1);
+}
+
+char    *ft_get_cmd_path(char *cmd)
+{
+    char    *cmd_path;
+
+    cmd_path = malloc(ft_strlen("/usr/bin/") + ft_strlen(cmd) + 1);
+    if (!cmd)
+        ft_error("Malloc error");
+    cmd_path[0] = '\0';
+    ft_strcat(cmd_path, "/usr/bin/");
+    ft_strcat(cmd_path, cmd);
+    if (access(cmd_path, F_OK) == 0)
+        return (cmd_path);
+    free(cmd_path);
+    return (NULL);
+}
+
+void    ft_execute_cmd(char *cmd)
+{
+    char    **args;
+    char    *path;
+
+    args = ft_split(cmd, ' ');
+    if (!args)
+        ft_error("Malloc error");
+    path = ft_get_cmd_path(args[0]);
+    if (!path)
+        ft_error("Commont not found");
+    if (execve(path, args, NULL) == -1)
+        ft_error("Execve error");
+    free(path);
+}
+
+void    ft_pipex(int fd1, char *cmd1, char *cmd2, int fd2)
+{
+    int     pipefd[2];
+    pid_t   pid1;
+    pid_t   pid2;
+
+    if (pipe(pipefd) == -1)
+        ft_error("Pipe error");
+    pid1 = fork();
+    if (pid1 < 0)
+        ft_error("Fork error");
+    if (pid1 == 0)
+    {
+        close(pipefd[0]);
+        dup2(fd1, 0);
+        dup2(pipefd[1], 1);
+        close(pipefd[1]);
+        ft_execute_cmd(cmd1);
+    }
+    pid2 = fork();
+    if (pid2 < 0)
+        ft_error("Fork error");
+    if (pid2 == 0)
+    {
+        close(pipefd[1]);
+        dup2(fd2, 1);
+        dup2(pipefd[0], 0);
+        close(pipefd[0]);
+        ft_execute_cmd(cmd2);
+    }
+
+    close(pipefd[0]);
+    close(pipefd[1]);
+
+    waitpid(pid1, NULL, 0);
+    waitpid(pid2, NULL, 0);
 }
 
 int main(int ac, char **av)
 {
-    int     fds[2];
-    int     fd1;
-    int     fd2;
-    pid_t   pid;
+    int fd1;
+    int fd2;
 
-    if (ac < 5)
-        return (printf("Error: (%s)\n", strerror(errno)), -1);
-
-    if (access(av[1], F_OK) < 0)
-        return (printf("Error: (%s)\n", strerror(errno)), -1);
-    if (ft_checkcmd(av[2]) == 42)
-        return (printf("Command not found: (%s)\n", av[2]), -1);
+    if (ac != 5)
+        ft_error("Invalid number of arguments");
     fd1 = open(av[1], O_RDONLY);
-    fd2 = open(av[4],O_CREAT, O_WRONLY);
-    if (!fd1 || !fd2)
-        return (printf("Error: (%s)\n", strerror(errno)), -1);
-    if (pipe(fds) < 0)
-        return (printf("Error: (%s)\n", strerror(errno)), -1);
+    if (fd1 == -1)
+        ft_error("Input file open error");
+    fd2 = open(av[4], O_CREAT | O_WRONLY | O_TRUNC, 0644);
+    if (fd2 == -1)
+        ft_error("output file open error");
+    ft_pipex(fd1, av[2], av[3], fd2);
+    close(fd1);
+    close(fd2);
+    return (0);
 }
