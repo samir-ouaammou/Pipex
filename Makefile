@@ -6,11 +6,11 @@
 #    By: souaammo <souaammo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/06 11:28:32 by souaammo          #+#    #+#              #
-#    Updated: 2024/12/07 16:51:18 by souaammo         ###   ########.fr        #
+#    Updated: 2024/12/07 18:50:50 by souaammo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-FILES = ft_pipex.c ft_pipex_utils.c
+FILES =	ft_pipex.c	ft_pipex_utils1.c	ft_pipex_utils2.c
 
 OBJS = $(FILES:.c=.o)
 

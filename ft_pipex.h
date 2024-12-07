@@ -6,7 +6,7 @@
 /*   By: souaammo <souaammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 11:30:27 by souaammo          #+#    #+#             */
-/*   Updated: 2024/12/07 14:43:40 by souaammo         ###   ########.fr       */
+/*   Updated: 2024/12/07 18:52:44 by souaammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <unistd.h>
 
 size_t	ft_strlen(const char *str);
+char	*ft_strdup(const char *str);
 char	**ft_split(char const *s, char c);
 char	*ft_strcat(char *dst, const char *src);
 

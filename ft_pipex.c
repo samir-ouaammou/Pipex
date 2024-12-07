@@ -67,7 +67,7 @@ void	ft_pipex(int fd1, char *cmd1, char *cmd2, int fd2)
 		dup2(pipefd[0], 0);
 		close(pipefd[0]);
 		ft_execute_cmd(cmd2);
-		exit (0);
+		exit(0);
 	}
 	else
 	{
