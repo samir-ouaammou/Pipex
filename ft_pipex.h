@@ -11,15 +11,15 @@
 /* ************************************************************************** */
 
 #ifndef FT_PIPEX_H
-#define FT_PIPEX_H
+# define FT_PIPEX_H
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-#include <fcntl.h>
-#include <errno.h>
-#include <sys/wait.h>
+# include <errno.h>
+# include <fcntl.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <string.h>
+# include <sys/wait.h>
+# include <unistd.h>
 
 size_t	ft_strlen(const char *str);
 char	**ft_split(char const *s, char c);
