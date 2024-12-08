@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pipex.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: souaammo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: souaammo <souaammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 21:31:53 by souaammo          #+#    #+#             */
-/*   Updated: 2024/12/08 21:31:57 by souaammo         ###   ########.fr       */
+/*   Updated: 2024/12/08 22:54:38 by souaammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	*ft_get_cmd_path(char *cmd)
 	char	*cmd_path;
 
 	cmd_path = malloc(ft_strlen("/usr/bin/") + ft_strlen(cmd) + 1);
-	if (!cmd)
+	if (!cmd_path)
 		ft_error("Malloc error");
 	cmd_path[0] = '\0';
 	ft_strcat(cmd_path, "/usr/bin/");
