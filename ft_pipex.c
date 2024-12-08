@@ -6,7 +6,7 @@
 /*   By: souaammo <souaammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 18:19:23 by souaammo          #+#    #+#             */
-/*   Updated: 2024/12/07 18:23:16 by souaammo         ###   ########.fr       */
+/*   Updated: 2024/12/08 11:16:24 by souaammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	ft_error(char *msgerror)
 {
 	perror(msgerror);
-	exit(1);
+	exit(-1);
 }
 
 char	*ft_get_cmd_path(char *cmd)
@@ -92,7 +92,7 @@ int	main(int ac, char **av)
 	fd1 = open(av[1], O_RDONLY);
 	if (fd1 == -1)
 		ft_error("Input file open error");
-	fd2 = open(av[4], O_CREAT | O_WRONLY | O_TRUNC, 0777);
+	fd2 = open(av[4], O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (fd2 == -1)
 		ft_error("output file open error");
 	ft_pipex(fd1, av[2], av[3], fd2);
