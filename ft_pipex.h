@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pipex.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: souaammo <souaammo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yourlogin <youremail@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/06 11:30:27 by souaammo          #+#    #+#             */
-/*   Updated: 2024/12/07 18:52:44 by souaammo         ###   ########.fr       */
+/*   Created: 2024/12/08 21:25:00 by yourlogin         #+#    #+#             */
+/*   Updated: 2024/12/08 21:25:00 by yourlogin        ###   ########.ch       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <sys/wait.h>
 # include <unistd.h>
 
+void	ft_error(char *msgerror);
 size_t	ft_strlen(const char *str);
 char	*ft_strdup(const char *str);
 char	**ft_split(char const *s, char c);

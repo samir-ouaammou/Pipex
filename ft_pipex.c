@@ -3,11 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pipex.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yourlogin <youremail@student.42lausanne.ch>    +#+  +:+      
-	+#+        */
+/*   By: yourlogin <youremail@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/08 20:49:33 by yourlogin         #+#    #+#             */
-/*   Updated: 2024/12/08 21:18:44 by yourlogin        ###   ########.ch       */
+/*   Created: 2024/12/08 21:25:50 by yourlogin         #+#    #+#             */
+/*   Updated: 2024/12/08 21:25:50 by yourlogin        ###   ########.ch       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +44,7 @@ void	ft_run_cmd(char *cmd)
 	free(path);
 }
 
-void	ft_close_fd(int fd1, int fd2)
+void	ft_close(int fd1, int fd2)
 {
 	close(fd1);
 	close(fd2);
