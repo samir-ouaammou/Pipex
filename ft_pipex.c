@@ -6,7 +6,7 @@
 /*   By: souaammo <souaammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 18:19:23 by souaammo          #+#    #+#             */
-/*   Updated: 2024/12/08 11:16:24 by souaammo         ###   ########.fr       */
+/*   Updated: 2024/12/08 11:20:40 by souaammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,10 @@ int	main(int ac, char **av)
 	int	fd2;
 
 	if (ac != 5)
-		ft_error("Invalid number of arguments");
+	{
+		write (1, "Invalid number of arguments\n", 28);
+		exit(-1);
+	}
 	fd1 = open(av[1], O_RDONLY);
 	if (fd1 == -1)
 		ft_error("Input file open error");
