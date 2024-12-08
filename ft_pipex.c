@@ -3,20 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pipex.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: souaammo <souaammo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yourlogin <youremail@student.42lausanne.ch>    +#+  +:+      
+	+#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/07 18:19:23 by souaammo          #+#    #+#             */
-/*   Updated: 2024/12/08 11:20:40 by souaammo         ###   ########.fr       */
+/*   Created: 2024/12/08 20:49:33 by yourlogin         #+#    #+#             */
+/*   Updated: 2024/12/08 21:18:44 by yourlogin        ###   ########.ch       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_pipex.h"
-
-void	ft_error(char *msgerror)
-{
-	perror(msgerror);
-	exit(-1);
-}
 
 char	*ft_get_cmd_path(char *cmd)
 {
@@ -34,7 +29,7 @@ char	*ft_get_cmd_path(char *cmd)
 	return (NULL);
 }
 
-void	ft_execute_cmd(char *cmd)
+void	ft_run_cmd(char *cmd)
 {
 	char	**args;
 	char	*path;
@@ -50,6 +45,12 @@ void	ft_execute_cmd(char *cmd)
 	free(path);
 }
 
+void	ft_close_fd(int fd1, int fd2)
+{
+	close(fd1);
+	close(fd2);
+}
+
 void	ft_pipex(int fd1, char *cmd1, char *cmd2, int fd2)
 {
 	int		pipefd[2];
@@ -62,24 +63,21 @@ void	ft_pipex(int fd1, char *cmd1, char *cmd2, int fd2)
 		ft_error("Fork error");
 	if (pid == 0)
 	{
-		close(pipefd[1]);
 		dup2(fd2, 1);
 		dup2(pipefd[0], 0);
-		close(pipefd[0]);
-		ft_execute_cmd(cmd2);
-		exit(0);
+		ft_close(pipefd[1], pipefd[0]);
+		ft_run_cmd(cmd2);
+		exit(EXIT_SUCCESS);
 	}
 	else
 	{
-		close(pipefd[0]);
 		dup2(fd1, 0);
 		dup2(pipefd[1], 1);
-		close(pipefd[1]);
-		ft_execute_cmd(cmd1);
+		ft_close(pipefd[1], pipefd[0]);
+		ft_run_cmd(cmd1);
 		wait(NULL);
 	}
-	close(pipefd[0]);
-	close(pipefd[1]);
+	ft_close(pipefd[1], pipefd[0]);
 }
 
 int	main(int ac, char **av)
@@ -89,8 +87,8 @@ int	main(int ac, char **av)
 
 	if (ac != 5)
 	{
-		write (1, "Invalid number of arguments\n", 28);
-		exit(-1);
+		write(1, "Invalid number of arguments\n", 28);
+		exit(EXIT_FAILURE);
 	}
 	fd1 = open(av[1], O_RDONLY);
 	if (fd1 == -1)
@@ -101,5 +99,5 @@ int	main(int ac, char **av)
 	ft_pipex(fd1, av[2], av[3], fd2);
 	close(fd1);
 	close(fd2);
-	return (0);
+	exit(EXIT_SUCCESS);
 }

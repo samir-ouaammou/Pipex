@@ -3,14 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pipex_utils2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: souaammo <souaammo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yourlogin <youremail@student.42lausanne.ch>    +#+  +:+      
+	+#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/07 18:49:55 by souaammo          #+#    #+#             */
-/*   Updated: 2024/12/07 18:50:09 by souaammo         ###   ########.fr       */
+/*   Created: 2024/12/08 21:18:49 by yourlogin         #+#    #+#             */
+/*   Updated: 2024/12/08 21:18:49 by yourlogin        ###   ########.ch       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_pipex.h"
+
+void	ft_error(char *msgerror)
+{
+	perror(msgerror);
+	exit(EXIT_FAILURE);
+}
 
 size_t	ft_strlen(const char *str)
 {
