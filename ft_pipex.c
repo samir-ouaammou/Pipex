@@ -3,100 +3,117 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pipex.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: souaammo <souaammo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: souaammo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/08 21:31:53 by souaammo          #+#    #+#             */
-/*   Updated: 2024/12/08 22:54:38 by souaammo         ###   ########.fr       */
+/*   Created: 2024/12/09 21:36:53 by souaammo          #+#    #+#             */
+/*   Updated: 2024/12/09 21:36:55 by souaammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_pipex.h"
 
-char	*ft_get_cmd_path(char *cmd)
+void	ft_pipex(int fd_in, char *cmd, int fd_out)
 {
-	char	*cmd_path;
-
-	cmd_path = malloc(ft_strlen("/usr/bin/") + ft_strlen(cmd) + 1);
-	if (!cmd_path)
-		ft_error("Malloc error");
-	cmd_path[0] = '\0';
-	ft_strcat(cmd_path, "/usr/bin/");
-	ft_strcat(cmd_path, cmd);
-	if (access(cmd_path, F_OK) == 0)
-		return (cmd_path);
-	free(cmd_path);
-	return (NULL);
-}
-
-void	ft_run_cmd(char *cmd)
-{
-	char	**args;
-	char	*path;
-
-	args = ft_split(cmd, ' ');
-	if (!args)
-		ft_error("Malloc error");
-	path = ft_get_cmd_path(args[0]);
-	if (!path)
-		ft_error("Commont not found");
-	if (execve(path, args, NULL) == -1)
-		ft_error("Execve error");
-	free(path);
-}
-
-void	ft_close(int fd1, int fd2)
-{
-	close(fd1);
-	close(fd2);
-}
-
-void	ft_pipex(int fd1, char *cmd1, char *cmd2, int fd2)
-{
-	int		pipefd[2];
 	pid_t	pid;
 
-	if (pipe(pipefd) == -1)
-		ft_error("Pipe error");
 	pid = fork();
-	if (pid < 0)
+	if (pid == -1)
 		ft_error("Fork error");
 	if (pid == 0)
 	{
-		dup2(fd2, 1);
-		dup2(pipefd[0], 0);
-		ft_close(pipefd[1], pipefd[0]);
-		ft_run_cmd(cmd2);
-		exit(EXIT_SUCCESS);
+		if (dup2(fd_in, 0) == -1)
+			ft_error("Dup2 error on input");
+		if (dup2(fd_out, 1) == -1)
+			ft_error("Dup2 error on output");
+		ft_run_cmd(cmd);
+		exit(EXIT_FAILURE);
 	}
 	else
-	{
-		dup2(fd1, 0);
-		dup2(pipefd[1], 1);
-		ft_close(pipefd[1], pipefd[0]);
-		ft_run_cmd(cmd1);
 		wait(NULL);
+}
+
+int	ft_openfile(int n, char *name, int temp)
+{
+	int	fd;
+
+	if (n == 1)
+		fd = open(name, O_RDONLY);
+	else if (n == 2)
+		fd = open(name, O_CREAT | O_RDWR | O_TRUNC, 0644);
+	else
+		fd = open(name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	if (fd == -1)
+	{
+		if (temp != -1)
+			close(temp);
+		ft_error("error open file");
 	}
-	ft_close(pipefd[1], pipefd[0]);
+	return (fd);
+}
+
+void	ft_here_doc(char *stop, int fd)
+{
+	char	*line;
+	char	*temp;
+
+	while (1)
+	{
+		line = get_next_line(0);
+		if (!line)
+			ft_error("Error reading line");
+		temp = line;
+		temp[ft_strlen(line)] = '\0';
+		if (ft_strcmp(temp, stop) == 1337)
+		{
+			free(line);
+			break ;
+		}
+		write(fd, line, ft_strlen(line));
+		free(line);
+	}
+	close(fd);
+}
+
+void	ft_main(int ac, char **av, int i)
+{
+	int	fd_in;
+	int	fd_out;
+	int	fd_temp;
+
+	fd_in = ft_openfile(1, av[1], -1);
+	while (i < ac - 2)
+	{
+		fd_temp = ft_openfile(2, ".temp", -1);
+		ft_pipex(fd_temp, av[i], fd_temp);
+		close(fd_temp);
+		i++;
+	}
+	fd_temp = ft_openfile(1, ".temp", fd_in);
+	fd_out = ft_openfile(3, av[ac - 1], -1);
+	ft_pipex(fd_temp, av[i], fd_out);
+	ft_close(fd_in, fd_out);
+	ft_close(fd_temp, -1);
+	unlink(".temp");
 }
 
 int	main(int ac, char **av)
 {
-	int	fd1;
-	int	fd2;
+	int	fd_in;
+	int	i;
 
-	if (ac != 5)
+	i = ft_check_args(ac, av);
+	if (i == 3)
 	{
-		write(1, "Invalid number of arguments\n", 28);
-		exit(EXIT_FAILURE);
+		fd_in = ft_openfile(2, av[1], -1);
+		ft_here_doc(av[2], fd_in);
+		i = 2;
+		while (i < ac - 2)
+		{
+			av[i] = av[i + 1];
+			i++;
+		}
+		i = 3;
 	}
-	fd1 = open(av[1], O_RDONLY);
-	if (fd1 == -1)
-		ft_error("Input file open error");
-	fd2 = open(av[4], O_CREAT | O_WRONLY | O_TRUNC, 0644);
-	if (fd2 == -1)
-		ft_error("output file open error");
-	ft_pipex(fd1, av[2], av[3], fd2);
-	close(fd1);
-	close(fd2);
+	ft_main(ac, av, i);
 	exit(EXIT_SUCCESS);
 }
