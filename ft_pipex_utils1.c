@@ -3,10 +3,11 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pipex_utils1.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: souaammo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: yourlogin <youremail@student.42lausanne.ch>    +#+  +:+      
+	+#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/11 19:01:16 by souaammo          #+#    #+#             */
-/*   Updated: 2024/12/11 19:01:17 by souaammo         ###   ########.fr       */
+/*   Created: 2024/12/11 19:49:57 by yourlogin         #+#    #+#             */
+/*   Updated: 2024/12/11 19:49:57 by yourlogin        ###   ########.ch       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +81,7 @@ void	ft_check_env(int ac, char **av, char **env, int i)
 		write(2, "Command not found: ", 19);
 		write(2, av[i], ft_strlen(av[i]));
 		write(1, "\n", 1);
+		i++;
 	}
 	exit(EXIT_FAILURE);
 }
