@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: souaammo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/09 21:40:24 by souaammo          #+#    #+#             */
-/*   Updated: 2024/12/09 21:40:27 by souaammo         ###   ########.fr       */
+/*   Created: 2024/12/11 19:01:02 by souaammo          #+#    #+#             */
+/*   Updated: 2024/12/11 19:01:05 by souaammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,6 @@ int		ft_check_args(int ac, char **av);
 char	**ft_split(char const *s, char c);
 int		ft_strchr(const char *str, char c);
 char	*ft_strcat(char *dst, const char *src);
+void	ft_check_env(int ac, char **av, char **env, int i);
 
 #endif

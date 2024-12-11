@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: souaammo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/09 21:37:12 by souaammo          #+#    #+#             */
-/*   Updated: 2024/12/09 21:37:14 by souaammo         ###   ########.fr       */
+/*   Created: 2024/12/11 19:01:16 by souaammo          #+#    #+#             */
+/*   Updated: 2024/12/11 19:01:17 by souaammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,4 +69,17 @@ void	ft_run_cmd(char *cmd)
 		free_split_array(args);
 		ft_error("Execve error");
 	}
+}
+
+void	ft_check_env(int ac, char **av, char **env, int i)
+{
+	if (*env != NULL)
+		return ;
+	while (i < ac - 1)
+	{
+		write(2, "Command not found: ", 19);
+		write(2, av[i], ft_strlen(av[i]));
+		write(1, "\n", 1);
+	}
+	exit(EXIT_FAILURE);
 }

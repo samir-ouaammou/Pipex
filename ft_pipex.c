@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: souaammo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/09 21:36:53 by souaammo          #+#    #+#             */
-/*   Updated: 2024/12/09 21:36:55 by souaammo         ###   ########.fr       */
+/*   Created: 2024/12/11 19:00:52 by souaammo          #+#    #+#             */
+/*   Updated: 2024/12/11 19:00:54 by souaammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,16 +54,14 @@ int	ft_openfile(int n, char *name, int temp)
 void	ft_here_doc(char *stop, int fd)
 {
 	char	*line;
-	char	*temp;
 
 	while (1)
 	{
+		write(1, "here_doc> ", 10);
 		line = get_next_line(0);
 		if (!line)
 			ft_error("Error reading line");
-		temp = line;
-		temp[ft_strlen(line)] = '\0';
-		if (ft_strcmp(temp, stop) == 1337)
+		if (ft_strcmp(line, stop) == 1337)
 		{
 			free(line);
 			break ;
@@ -78,30 +76,30 @@ void	ft_main(int ac, char **av, int i)
 {
 	int	fd_in;
 	int	fd_out;
-	int	fd_temp;
+	int	pipe_fd[2];
 
 	fd_in = ft_openfile(1, av[1], -1);
 	while (i < ac - 2)
 	{
-		fd_temp = ft_openfile(2, ".temp", -1);
-		ft_pipex(fd_temp, av[i], fd_temp);
-		close(fd_temp);
+		if (pipe(pipe_fd) == -1)
+			ft_error("Pipe error");
+		ft_pipex(fd_in, av[i], pipe_fd[1]);
+		close(pipe_fd[1]);
+		fd_in = pipe_fd[0];
 		i++;
 	}
-	fd_temp = ft_openfile(1, ".temp", fd_in);
 	fd_out = ft_openfile(3, av[ac - 1], -1);
-	ft_pipex(fd_temp, av[i], fd_out);
+	ft_pipex(fd_in, av[i], fd_out);
 	ft_close(fd_in, fd_out);
-	ft_close(fd_temp, -1);
-	unlink(".temp");
 }
 
-int	main(int ac, char **av)
+int	main(int ac, char **av, char **env)
 {
 	int	fd_in;
 	int	i;
 
 	i = ft_check_args(ac, av);
+	ft_check_env(ac, av, env, i);
 	if (i == 3)
 	{
 		fd_in = ft_openfile(2, av[1], -1);
