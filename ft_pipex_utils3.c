@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pipex_utils3.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: souaammo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: souaammo <souaammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 19:56:49 by souaammo          #+#    #+#             */
-/*   Updated: 2024/12/11 19:56:51 by souaammo         ###   ########.fr       */
+/*   Updated: 2024/12/12 09:58:03 by souaammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,11 @@ int	ft_strcmp(char *s1, char *s2)
 	if (!s1 || !s2)
 		return (42);
 	i = 0;
-	while (s1[i] && s1[1] == s2[i])
+	while (s1[i] && s1[i] == s2[i])
 		i++;
 	if (s1[i] == s2[i])
+		return (1337);
+	if (s1[i] == '\n' && s2[i] == '\0')
 		return (1337);
 	return (42);
 }
