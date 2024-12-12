@@ -16,14 +16,12 @@ BONUS = ft_pipex2_bonus.c ft_pipex2_utils1_bonus.c ft_pipex2_utils3_bonus.c \
         ft_pipex2_utils2_bonus.c get_next_line.c get_next_line_utils.c
 
 OBJS = $(FILES:.c=.o)
-
 BOBJS = $(BONUS:.c=.o)
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
 
 NAME = pipex
-BONUS_NAME = pipex_bonus
 
 RM = rm -rf
 
@@ -32,18 +30,16 @@ all: $(NAME)
 $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
 
-bonus: $(BONUS_NAME)
+bonus: $(BOBJS)
+	$(CC) $(CFLAGS) $(BOBJS) -o $(NAME)
 
-$(BONUS_NAME): $(BOBJS)
-	$(CC) $(CFLAGS) $(BOBJS) -o $(BONUS_NAME)
-
-.o: .c
+%.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
 	$(RM) $(OBJS) $(BOBJS)
 
 fclean: clean
-	$(RM) $(NAME) $(BONUS_NAME)
+	$(RM) $(NAME)
 
 re: fclean all
