@@ -1,16 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   ft_pipex1_utils2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: souaammo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/12 13:09:58 by souaammo          #+#    #+#             */
-/*   Updated: 2024/12/12 13:10:05 by souaammo         ###   ########.fr       */
+/*   Created: 2024/12/12 13:07:33 by souaammo          #+#    #+#             */
+/*   Updated: 2024/12/12 13:07:35 by souaammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_pipex2_bonus.h"
+#include "ft_pipex1.h"
+
+void	ft_error(char *msgerror)
+{
+	perror(msgerror);
+	exit(EXIT_FAILURE);
+}
 
 size_t	ft_strlen(const char *str)
 {
@@ -22,40 +28,6 @@ size_t	ft_strlen(const char *str)
 	while (str[l])
 		l++;
 	return (l);
-}
-
-char	*ft_strdup(const char *str)
-{
-	size_t	i;
-	char	*res;
-
-	res = (char *)malloc(sizeof(char) + (ft_strlen(str) + 1));
-	if (!res)
-		return (NULL);
-	i = 0;
-	while (str[i])
-	{
-		res[i] = str[i];
-		i++;
-	}
-	res[i] = '\0';
-	return (res);
-}
-
-int	ft_strchr(const char *str, char c)
-{
-	size_t	i;
-
-	if (!str)
-		return (0);
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == c)
-			return (1);
-		i++;
-	}
-	return (0);
 }
 
 char	*ft_strcat(char *dst, const char *src)
@@ -76,23 +48,20 @@ char	*ft_strcat(char *dst, const char *src)
 	return (dst);
 }
 
-char	*ft_strjoin(char *s1, char *s2)
+char	*ft_strdup(const char *str)
 {
-	char	*result;
+	size_t	i;
+	char	*res;
 
-	if (!s1 && !s2)
+	res = (char *)malloc(sizeof(char) + (ft_strlen(str) + 1));
+	if (!res)
 		return (NULL);
-	if (!s1)
-		return (ft_strdup(s2));
-	if (!s2)
-		return (ft_strdup(s1));
-	result = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
-	if (!result)
-		return (NULL);
-	result[0] = '\0';
-	ft_strcat(result, s1);
-	ft_strcat(result, s2);
-	free(s1);
-	s1 = NULL;
-	return (result);
+	i = 0;
+	while (str[i])
+	{
+		res[i] = str[i];
+		i++;
+	}
+	res[i] = '\0';
+	return (res);
 }
