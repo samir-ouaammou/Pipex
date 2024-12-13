@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pipex1.c                                        :+:      :+:    :+:   */
+/*   ft_pipex.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: souaammo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: yourlogin <youremail@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/12 13:06:45 by souaammo          #+#    #+#             */
-/*   Updated: 2024/12/12 13:06:47 by souaammo         ###   ########.fr       */
+/*   Created: 2024/12/13 12:37:34 by yourlogin         #+#    #+#             */
+/*   Updated: 2024/12/13 12:37:34 by yourlogin        ###   ########.ch       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_pipex1.h"
+#include "ft_pipex.h"
 
 char	*ft_get_cmd_path(char *cmd)
 {

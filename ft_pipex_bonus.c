@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pipex2_bonus.c                                  :+:      :+:    :+:   */
+/*   ft_pipex_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: souaammo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: yourlogin <youremail@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/12 13:07:51 by souaammo          #+#    #+#             */
-/*   Updated: 2024/12/12 13:07:52 by souaammo         ###   ########.fr       */
+/*   Created: 2024/12/13 12:36:40 by yourlogin         #+#    #+#             */
+/*   Updated: 2024/12/13 12:36:59 by yourlogin        ###   ########.ch       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_pipex2_bonus.h"
+#include "ft_pipex_bonus.h"
 
 void	ft_pipex(int fd_in, char *cmd, int fd_out)
 {
@@ -105,13 +105,14 @@ int	main(int ac, char **av, char **env)
 		fd_in = ft_openfile(2, av[1], -1);
 		ft_here_doc(av[2], fd_in);
 		i = 2;
-		while (i < ac - 2)
+		while (i < ac - 1)
 		{
 			av[i] = av[i + 1];
 			i++;
 		}
-		i = 3;
+		ac--;
 	}
+	i = 2;
 	ft_main(ac, av, i);
 	exit(EXIT_SUCCESS);
 }

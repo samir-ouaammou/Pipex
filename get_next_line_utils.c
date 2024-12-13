@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: souaammo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: yourlogin <youremail@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/12 13:09:58 by souaammo          #+#    #+#             */
-/*   Updated: 2024/12/12 13:10:05 by souaammo         ###   ########.fr       */
+/*   Created: 2024/12/13 12:37:39 by yourlogin         #+#    #+#             */
+/*   Updated: 2024/12/13 12:37:39 by yourlogin        ###   ########.ch       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_pipex2_bonus.h"
+#include "ft_pipex_bonus.h"
 
 size_t	ft_strlen(const char *str)
 {

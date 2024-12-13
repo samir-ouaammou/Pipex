@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: souaammo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: yourlogin <youremail@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/12 13:09:38 by souaammo          #+#    #+#             */
-/*   Updated: 2024/12/12 13:09:41 by souaammo         ###   ########.fr       */
+/*   Created: 2024/12/13 12:37:43 by yourlogin         #+#    #+#             */
+/*   Updated: 2024/12/13 12:37:43 by yourlogin        ###   ########.ch       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_pipex2_bonus.h"
+#include "ft_pipex_bonus.h"
 
 char	*read_buffer_size(int fd, char *save)
 {

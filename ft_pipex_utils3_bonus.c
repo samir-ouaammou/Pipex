@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pipex2_utils3_bonus.c                           :+:      :+:    :+:   */
+/*   ft_pipex_utils3_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: souaammo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: yourlogin <youremail@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/12 13:08:57 by souaammo          #+#    #+#             */
-/*   Updated: 2024/12/12 13:08:58 by souaammo         ###   ########.fr       */
+/*   Created: 2024/12/13 12:37:31 by yourlogin         #+#    #+#             */
+/*   Updated: 2024/12/13 12:37:31 by yourlogin        ###   ########.ch       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_pipex2_bonus.h"
+#include "ft_pipex_bonus.h"
 
 void	ft_close(int fd1, int fd2)
 {

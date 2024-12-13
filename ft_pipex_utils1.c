@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pipex2_utils2_bonus.c                           :+:      :+:    :+:   */
+/*   ft_pipex_utils1.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: souaammo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: souaammo <souaammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/12 13:08:42 by souaammo          #+#    #+#             */
-/*   Updated: 2024/12/12 13:08:43 by souaammo         ###   ########.fr       */
+/*   Created: 2024/12/12 13:07:16 by souaammo          #+#    #+#             */
+/*   Updated: 2024/12/13 12:37:16 by souaammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_pipex2_bonus.h"
+#include "ft_pipex.h"
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
