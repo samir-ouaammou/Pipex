@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pipex_utils2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yourlogin <youremail@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: souaammo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/13 12:37:25 by yourlogin         #+#    #+#             */
-/*   Updated: 2024/12/13 12:37:25 by yourlogin        ###   ########.ch       */
+/*   Created: 2024/12/13 14:55:01 by souaammo          #+#    #+#             */
+/*   Updated: 2024/12/13 14:55:02 by souaammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	ft_error(char *msgerror)
 {
 	perror(msgerror);
-	exit(EXIT_FAILURE);
+	exit(-1);
 }
 
 size_t	ft_strlen(const char *str)

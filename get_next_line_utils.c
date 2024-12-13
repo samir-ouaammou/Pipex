@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yourlogin <youremail@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: souaammo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/13 12:37:39 by yourlogin         #+#    #+#             */
-/*   Updated: 2024/12/13 12:37:39 by yourlogin        ###   ########.ch       */
+/*   Created: 2024/12/13 14:55:36 by souaammo          #+#    #+#             */
+/*   Updated: 2024/12/13 14:55:37 by souaammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

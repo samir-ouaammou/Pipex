@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pipex.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yourlogin <youremail@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: souaammo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/13 12:37:34 by yourlogin         #+#    #+#             */
-/*   Updated: 2024/12/13 12:37:34 by yourlogin        ###   ########.ch       */
+/*   Created: 2024/12/13 14:54:06 by souaammo          #+#    #+#             */
+/*   Updated: 2024/12/13 14:54:08 by souaammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	ft_pipex(int fd1, char *cmd1, char *cmd2, int fd2)
 		dup2(pipefd[0], 0);
 		ft_close(pipefd[1], pipefd[0]);
 		ft_run_cmd(cmd2);
-		exit(EXIT_SUCCESS);
+		exit(0);
 	}
 	else
 	{
@@ -98,5 +98,5 @@ int	main(int ac, char **av)
 	ft_pipex(fd1, av[2], av[3], fd2);
 	close(fd1);
 	close(fd2);
-	exit(EXIT_SUCCESS);
+	exit(0);
 }

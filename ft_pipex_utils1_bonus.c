@@ -3,19 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pipex_utils1_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yourlogin <youremail@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: souaammo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/13 12:37:13 by yourlogin         #+#    #+#             */
-/*   Updated: 2024/12/13 12:37:13 by yourlogin        ###   ########.ch       */
+/*   Created: 2024/12/13 14:54:28 by souaammo          #+#    #+#             */
+/*   Updated: 2024/12/13 14:54:30 by souaammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_pipex_bonus.h"
 
-void	ft_error(char *msgerror)
+void	ft_msg_error(char *msg, char *error)
 {
-	perror(msgerror);
-	exit(EXIT_FAILURE);
+	write(2, msg, ft_strlen(msg));
+	if (error)
+	{
+		write(2, error, ft_strlen(error));
+		write(2, "\n", 1);
+	}
+	exit(-1);
 }
 
 void	free_split_array(char **args)
@@ -39,7 +44,7 @@ char	*ft_get_cmd_path(char *cmd)
 
 	cmd_path = malloc(ft_strlen("/usr/bin/") + ft_strlen(cmd) + 1);
 	if (!cmd_path)
-		ft_error("Malloc error");
+		ft_msg_error("Malloc error\n", NULL);
 	cmd_path[0] = '\0';
 	ft_strcat(cmd_path, "/usr/bin/");
 	ft_strcat(cmd_path, cmd);
@@ -56,18 +61,18 @@ void	ft_run_cmd(char *cmd)
 
 	args = ft_split(cmd, ' ');
 	if (!args)
-		ft_error("Malloc error");
+		ft_msg_error("Malloc error\n", NULL);
 	path = ft_get_cmd_path(args[0]);
 	if (!path)
 	{
 		free_split_array(args);
-		ft_error("Command not found");
+		ft_msg_error("Command not found: ", cmd);
 	}
 	if (execve(path, args, NULL) == -1)
 	{
 		free(path);
 		free_split_array(args);
-		ft_error("Execve error");
+		ft_msg_error("Execve error\n", NULL);
 	}
 }
 
@@ -79,8 +84,8 @@ void	ft_check_env(int ac, char **av, char **env, int i)
 	{
 		write(2, "Command not found: ", 19);
 		write(2, av[i], ft_strlen(av[i]));
-		write(1, "\n", 1);
+		write(2, "\n", 1);
 		i++;
 	}
-	exit(EXIT_FAILURE);
+	exit(-1);
 }

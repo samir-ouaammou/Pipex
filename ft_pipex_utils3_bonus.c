@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pipex_utils3_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yourlogin <youremail@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: souaammo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/13 12:37:31 by yourlogin         #+#    #+#             */
-/*   Updated: 2024/12/13 12:37:31 by yourlogin        ###   ########.ch       */
+/*   Created: 2024/12/13 14:55:09 by souaammo          #+#    #+#             */
+/*   Updated: 2024/12/13 14:55:11 by souaammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	ft_check_args(int ac, char **av)
 	if (ac < n)
 	{
 		write(2, "Invalid number of arguments\n", 28);
-		exit(EXIT_FAILURE);
+		exit(-1);
 	}
 	if (i == 1337)
 		return (3);

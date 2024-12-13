@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pipex_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yourlogin <youremail@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: souaammo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/13 12:36:40 by yourlogin         #+#    #+#             */
-/*   Updated: 2024/12/13 12:36:59 by yourlogin        ###   ########.ch       */
+/*   Created: 2024/12/13 14:53:46 by souaammo          #+#    #+#             */
+/*   Updated: 2024/12/13 14:53:48 by souaammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,15 @@ void	ft_pipex(int fd_in, char *cmd, int fd_out)
 
 	pid = fork();
 	if (pid == -1)
-		ft_error("Fork error");
+		ft_msg_error("Fork error\n", NULL);
 	if (pid == 0)
 	{
 		if (dup2(fd_in, 0) == -1)
-			ft_error("Dup2 error on input");
+			ft_msg_error("Dup2 error on input\n", NULL);
 		if (dup2(fd_out, 1) == -1)
-			ft_error("Dup2 error on output");
+			ft_msg_error("Dup2 error on output\n", NULL);
 		ft_run_cmd(cmd);
-		exit(EXIT_FAILURE);
+		exit(-1);
 	}
 	else
 		wait(NULL);
@@ -46,7 +46,7 @@ int	ft_openfile(int n, char *name, int temp)
 	{
 		if (temp != -1)
 			close(temp);
-		ft_error("error open file");
+		ft_msg_error("error open file\n", NULL);
 	}
 	return (fd);
 }
@@ -60,7 +60,7 @@ void	ft_here_doc(char *stop, int fd)
 		write(1, "here_doc> ", 10);
 		line = get_next_line(0);
 		if (!line)
-			ft_error("Error reading line");
+			ft_msg_error("Error reading line\n", NULL);
 		if (ft_strcmp(line, stop) == 1337)
 		{
 			free(line);
@@ -82,7 +82,7 @@ void	ft_main(int ac, char **av, int i)
 	while (i < ac - 2)
 	{
 		if (pipe(pipe_fd) == -1)
-			ft_error("Pipe error");
+			ft_msg_error("Pipe error\n", NULL);
 		ft_pipex(fd_in, av[i], pipe_fd[1]);
 		close(pipe_fd[1]);
 		fd_in = pipe_fd[0];
@@ -114,5 +114,5 @@ int	main(int ac, char **av, char **env)
 	}
 	i = 2;
 	ft_main(ac, av, i);
-	exit(EXIT_SUCCESS);
+	exit(0);
 }
