@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pipex_bonus.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: souaammo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: yourlogin <youremail@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/13 21:03:21 by souaammo          #+#    #+#             */
-/*   Updated: 2024/12/13 21:03:23 by souaammo         ###   ########.fr       */
+/*   Created: 2024/12/13 21:41:27 by yourlogin         #+#    #+#             */
+/*   Updated: 2024/12/13 21:42:41 by yourlogin        ###   ########.ch       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,3 +38,17 @@ void	ft_msg_error(char *msg, char *error, int n);
 void	ft_check_env(int ac, char **av, char **env, int i);
 
 #endif
+
+/*
+#define OPEN_ERROR 1         // Error opening file
+#define ENV_ERROR 2          // Error with environment variables
+#define INVALID_ARGS 3       // Invalid number of arguments
+#define MALLOC_ERROR 4       // Memory allocation failure
+#define PIPE_ERROR 5         // Pipe creation failure
+#define FORK_ERROR 6         // Fork creation failure
+#define DUP2_ERROR 7         // Failure in file descriptor redirection using dup2
+#define ACCESS_ERROR 8       // File access failure
+#define EXECVE_ERROR 9       // execve execution failure
+#define CMD_NOT_FOUND 127    // Command not found
+
+*/

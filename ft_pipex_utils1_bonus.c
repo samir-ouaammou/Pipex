@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pipex_utils1_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: souaammo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: yourlogin <youremail@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/13 21:03:42 by souaammo          #+#    #+#             */
-/*   Updated: 2024/12/13 21:03:45 by souaammo         ###   ########.fr       */
+/*   Created: 2024/12/13 21:44:34 by yourlogin         #+#    #+#             */
+/*   Updated: 2024/12/13 21:44:34 by yourlogin        ###   ########.ch       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ char	*ft_get_cmd_path(char *cmd)
 
 	cmd_path = malloc(ft_strlen("/usr/bin/") + ft_strlen(cmd) + 1);
 	if (!cmd_path)
-		ft_msg_error("Malloc error\n", NULL, 1);
+		ft_msg_error("Malloc error\n", NULL, 4);
 	cmd_path[0] = '\0';
 	ft_strcat(cmd_path, "/usr/bin/");
 	ft_strcat(cmd_path, cmd);
@@ -61,7 +61,7 @@ void	ft_run_cmd(char *cmd)
 
 	args = ft_split(cmd, ' ');
 	if (!args)
-		ft_msg_error("Malloc error\n", NULL, 1);
+		ft_msg_error("Malloc error\n", NULL, 4);
 	path = ft_get_cmd_path(args[0]);
 	if (!path)
 	{
@@ -72,7 +72,7 @@ void	ft_run_cmd(char *cmd)
 	{
 		free(path);
 		free_split_array(args);
-		ft_msg_error("Execve error\n", NULL, 1);
+		ft_msg_error("Execve error\n", NULL, 9);
 	}
 }
 
@@ -87,5 +87,5 @@ void	ft_check_env(int ac, char **av, char **env, int i)
 		write(2, "\n", 1);
 		i++;
 	}
-	exit(-1);
+	exit(2);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pipex_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: souaammo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: yourlogin <youremail@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/13 21:03:04 by souaammo          #+#    #+#             */
-/*   Updated: 2024/12/13 21:03:06 by souaammo         ###   ########.fr       */
+/*   Created: 2024/12/13 21:39:49 by yourlogin         #+#    #+#             */
+/*   Updated: 2024/12/13 21:40:33 by yourlogin        ###   ########.ch       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,15 @@ void	ft_pipex(int fd_in, char *cmd, int fd_out)
 
 	pid = fork();
 	if (pid == -1)
-		ft_msg_error("Fork error\n", NULL, 1);
+		ft_msg_error("Fork error\n", NULL, 6);
 	if (pid == 0)
 	{
 		if (dup2(fd_in, 0) == -1)
-			ft_msg_error("Dup2 error on input\n", NULL, 1);
+			ft_msg_error("Dup2 error on input\n", NULL, 7);
 		if (dup2(fd_out, 1) == -1)
-			ft_msg_error("Dup2 error on output\n", NULL, 1);
+			ft_msg_error("Dup2 error on output\n", NULL, 7);
 		ft_run_cmd(cmd);
-		exit(-1);
+		exit(7);
 	}
 	else
 		wait(NULL);
@@ -46,7 +46,7 @@ int	ft_openfile(int n, char *name, int temp)
 	{
 		if (temp != -1)
 			close(temp);
-		ft_msg_error("error open file\n", NULL, 1);
+		ft_msg_error("Error open file\n", NULL, 1);
 	}
 	return (fd);
 }
@@ -82,7 +82,7 @@ void	ft_main(int ac, char **av, int i)
 	while (i < ac - 2)
 	{
 		if (pipe(pipe_fd) == -1)
-			ft_msg_error("Pipe error\n", NULL, 1);
+			ft_msg_error("Pipe error\n", NULL, 5);
 		ft_pipex(fd_in, av[i], pipe_fd[1]);
 		close(pipe_fd[1]);
 		fd_in = pipe_fd[0];

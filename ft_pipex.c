@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pipex.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: souaammo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: yourlogin <youremail@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/13 14:54:06 by souaammo          #+#    #+#             */
-/*   Updated: 2024/12/13 14:54:08 by souaammo         ###   ########.fr       */
+/*   Created: 2024/12/13 21:34:08 by yourlogin         #+#    #+#             */
+/*   Updated: 2024/12/13 21:39:38 by yourlogin        ###   ########.ch       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*ft_get_cmd_path(char *cmd)
 
 	cmd_path = malloc(ft_strlen("/usr/bin/") + ft_strlen(cmd) + 1);
 	if (!cmd_path)
-		ft_error("Malloc error");
+		ft_msg_error("Malloc error\n", NULL, 4);
 	cmd_path[0] = '\0';
 	ft_strcat(cmd_path, "/usr/bin/");
 	ft_strcat(cmd_path, cmd);
@@ -35,12 +35,12 @@ void	ft_run_cmd(char *cmd)
 
 	args = ft_split(cmd, ' ');
 	if (!args)
-		ft_error("Malloc error");
+		ft_msg_error("Malloc error\n", NULL, 4);
 	path = ft_get_cmd_path(args[0]);
 	if (!path)
-		ft_error("Commont not found");
+		ft_msg_error("Commont not found: ", cmd, 127);
 	if (execve(path, args, NULL) == -1)
-		ft_error("Execve error");
+		ft_msg_error("Execve error\n", NULL, 8);
 	free(path);
 }
 
@@ -56,10 +56,10 @@ void	ft_pipex(int fd1, char *cmd1, char *cmd2, int fd2)
 	pid_t	pid;
 
 	if (pipe(pipefd) == -1)
-		ft_error("Pipe error");
+		ft_msg_error("Pipe error\n", NULL, 5);
 	pid = fork();
 	if (pid < 0)
-		ft_error("Fork error");
+		ft_msg_error("Fork error\n", NULL, 6);
 	if (pid == 0)
 	{
 		dup2(fd2, 1);
@@ -85,16 +85,13 @@ int	main(int ac, char **av)
 	int	fd2;
 
 	if (ac != 5)
-	{
-		write(1, "Invalid number of arguments\n", 28);
-		exit(EXIT_FAILURE);
-	}
+		ft_msg_error("Invalid number of arguments\n", NULL, 2);
 	fd1 = open(av[1], O_RDONLY);
 	if (fd1 == -1)
-		ft_error("Input file open error");
+		ft_msg_error("Input file open error\n", NULL, 1);
 	fd2 = open(av[4], O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (fd2 == -1)
-		ft_error("output file open error");
+		ft_msg_error("output file open error\n", NULL, 1);
 	ft_pipex(fd1, av[2], av[3], fd2);
 	close(fd1);
 	close(fd2);

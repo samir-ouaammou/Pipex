@@ -3,19 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pipex_utils2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: souaammo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: yourlogin <youremail@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/13 14:55:01 by souaammo          #+#    #+#             */
-/*   Updated: 2024/12/13 14:55:02 by souaammo         ###   ########.fr       */
+/*   Created: 2024/12/13 21:33:37 by yourlogin         #+#    #+#             */
+/*   Updated: 2024/12/13 21:33:37 by yourlogin        ###   ########.ch       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_pipex.h"
 
-void	ft_error(char *msgerror)
+void	ft_msg_error(char *msg, char *error, int n)
 {
-	perror(msgerror);
-	exit(-1);
+	write(2, msg, ft_strlen(msg));
+	if (error)
+	{
+		write(2, error, ft_strlen(error));
+		write(2, "\n", 1);
+	}
+	exit(n);
 }
 
 size_t	ft_strlen(const char *str)
