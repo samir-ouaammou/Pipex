@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: souaammo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/13 14:53:46 by souaammo          #+#    #+#             */
-/*   Updated: 2024/12/13 14:53:48 by souaammo         ###   ########.fr       */
+/*   Created: 2024/12/13 21:03:04 by souaammo          #+#    #+#             */
+/*   Updated: 2024/12/13 21:03:06 by souaammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@ void	ft_pipex(int fd_in, char *cmd, int fd_out)
 
 	pid = fork();
 	if (pid == -1)
-		ft_msg_error("Fork error\n", NULL);
+		ft_msg_error("Fork error\n", NULL, 1);
 	if (pid == 0)
 	{
 		if (dup2(fd_in, 0) == -1)
-			ft_msg_error("Dup2 error on input\n", NULL);
+			ft_msg_error("Dup2 error on input\n", NULL, 1);
 		if (dup2(fd_out, 1) == -1)
-			ft_msg_error("Dup2 error on output\n", NULL);
+			ft_msg_error("Dup2 error on output\n", NULL, 1);
 		ft_run_cmd(cmd);
 		exit(-1);
 	}
@@ -46,7 +46,7 @@ int	ft_openfile(int n, char *name, int temp)
 	{
 		if (temp != -1)
 			close(temp);
-		ft_msg_error("error open file\n", NULL);
+		ft_msg_error("error open file\n", NULL, 1);
 	}
 	return (fd);
 }
@@ -60,7 +60,7 @@ void	ft_here_doc(char *stop, int fd)
 		write(1, "here_doc> ", 10);
 		line = get_next_line(0);
 		if (!line)
-			ft_msg_error("Error reading line\n", NULL);
+			ft_msg_error("Error reading line\n", NULL, 1);
 		if (ft_strcmp(line, stop) == 1337)
 		{
 			free(line);
@@ -82,7 +82,7 @@ void	ft_main(int ac, char **av, int i)
 	while (i < ac - 2)
 	{
 		if (pipe(pipe_fd) == -1)
-			ft_msg_error("Pipe error\n", NULL);
+			ft_msg_error("Pipe error\n", NULL, 1);
 		ft_pipex(fd_in, av[i], pipe_fd[1]);
 		close(pipe_fd[1]);
 		fd_in = pipe_fd[0];

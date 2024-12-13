@@ -5,14 +5,14 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: souaammo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/13 14:54:28 by souaammo          #+#    #+#             */
-/*   Updated: 2024/12/13 14:54:30 by souaammo         ###   ########.fr       */
+/*   Created: 2024/12/13 21:03:42 by souaammo          #+#    #+#             */
+/*   Updated: 2024/12/13 21:03:45 by souaammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_pipex_bonus.h"
 
-void	ft_msg_error(char *msg, char *error)
+void	ft_msg_error(char *msg, char *error, int n)
 {
 	write(2, msg, ft_strlen(msg));
 	if (error)
@@ -20,7 +20,7 @@ void	ft_msg_error(char *msg, char *error)
 		write(2, error, ft_strlen(error));
 		write(2, "\n", 1);
 	}
-	exit(-1);
+	exit(n);
 }
 
 void	free_split_array(char **args)
@@ -44,7 +44,7 @@ char	*ft_get_cmd_path(char *cmd)
 
 	cmd_path = malloc(ft_strlen("/usr/bin/") + ft_strlen(cmd) + 1);
 	if (!cmd_path)
-		ft_msg_error("Malloc error\n", NULL);
+		ft_msg_error("Malloc error\n", NULL, 1);
 	cmd_path[0] = '\0';
 	ft_strcat(cmd_path, "/usr/bin/");
 	ft_strcat(cmd_path, cmd);
@@ -61,18 +61,18 @@ void	ft_run_cmd(char *cmd)
 
 	args = ft_split(cmd, ' ');
 	if (!args)
-		ft_msg_error("Malloc error\n", NULL);
+		ft_msg_error("Malloc error\n", NULL, 1);
 	path = ft_get_cmd_path(args[0]);
 	if (!path)
 	{
 		free_split_array(args);
-		ft_msg_error("Command not found: ", cmd);
+		ft_msg_error("Command not found: ", cmd, 127);
 	}
 	if (execve(path, args, NULL) == -1)
 	{
 		free(path);
 		free_split_array(args);
-		ft_msg_error("Execve error\n", NULL);
+		ft_msg_error("Execve error\n", NULL, 1);
 	}
 }
 
