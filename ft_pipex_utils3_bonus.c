@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pipex_utils3_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yourlogin <youremail@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: souaammo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/13 21:45:18 by yourlogin         #+#    #+#             */
-/*   Updated: 2024/12/13 21:45:18 by yourlogin        ###   ########.ch       */
+/*   Created: 2024/12/13 21:49:33 by souaammo          #+#    #+#             */
+/*   Updated: 2024/12/13 21:49:35 by souaammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

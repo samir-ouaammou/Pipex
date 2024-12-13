@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pipex_bonus.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yourlogin <youremail@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: souaammo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/13 21:41:27 by yourlogin         #+#    #+#             */
-/*   Updated: 2024/12/13 21:42:41 by yourlogin        ###   ########.ch       */
+/*   Created: 2024/12/13 21:48:06 by souaammo          #+#    #+#             */
+/*   Updated: 2024/12/13 21:48:07 by souaammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,5 +50,4 @@ void	ft_check_env(int ac, char **av, char **env, int i);
 #define ACCESS_ERROR 8       // File access failure
 #define EXECVE_ERROR 9       // execve execution failure
 #define CMD_NOT_FOUND 127    // Command not found
-
 */
