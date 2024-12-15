@@ -5,95 +5,114 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: souaammo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/13 21:48:14 by souaammo          #+#    #+#             */
-/*   Updated: 2024/12/13 21:48:15 by souaammo         ###   ########.fr       */
+/*   Created: 2024/12/15 16:19:20 by souaammo          #+#    #+#             */
+/*   Updated: 2024/12/15 16:19:23 by souaammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_pipex.h"
 
-char	*ft_get_cmd_path(char *cmd)
+void	ft_pipex(int fd_in, char *cmd, int fd_out)
 {
-	char	*cmd_path;
-
-	cmd_path = malloc(ft_strlen("/usr/bin/") + ft_strlen(cmd) + 1);
-	if (!cmd_path)
-		ft_msg_error("Malloc error\n", NULL, 4);
-	cmd_path[0] = '\0';
-	ft_strcat(cmd_path, "/usr/bin/");
-	ft_strcat(cmd_path, cmd);
-	if (access(cmd_path, F_OK) == 0)
-		return (cmd_path);
-	free(cmd_path);
-	return (NULL);
-}
-
-void	ft_run_cmd(char *cmd)
-{
-	char	**args;
-	char	*path;
-
-	args = ft_split(cmd, ' ');
-	if (!args)
-		ft_msg_error("Malloc error\n", NULL, 4);
-	path = ft_get_cmd_path(args[0]);
-	if (!path)
-		ft_msg_error("Commont not found: ", cmd, 127);
-	if (execve(path, args, NULL) == -1)
-		ft_msg_error("Execve error\n", NULL, 8);
-	free(path);
-}
-
-void	ft_close(int fd1, int fd2)
-{
-	close(fd1);
-	close(fd2);
-}
-
-void	ft_pipex(int fd1, char *cmd1, char *cmd2, int fd2)
-{
-	int		pipefd[2];
 	pid_t	pid;
 
-	if (pipe(pipefd) == -1)
-		ft_msg_error("Pipe error\n", NULL, 5);
 	pid = fork();
-	if (pid < 0)
+	if (pid == -1)
 		ft_msg_error("Fork error\n", NULL, 6);
 	if (pid == 0)
 	{
-		dup2(fd2, 1);
-		dup2(pipefd[0], 0);
-		ft_close(pipefd[1], pipefd[0]);
-		ft_run_cmd(cmd2);
-		exit(0);
+		if (dup2(fd_in, 0) == -1)
+			ft_msg_error("Dup2 error on input\n", NULL, 7);
+		if (dup2(fd_out, 1) == -1)
+			ft_msg_error("Dup2 error on output\n", NULL, 7);
+		ft_run_cmd(cmd);
+		exit(7);
 	}
 	else
-	{
-		dup2(fd1, 0);
-		dup2(pipefd[1], 1);
-		ft_close(pipefd[1], pipefd[0]);
-		ft_run_cmd(cmd1);
 		wait(NULL);
-	}
-	ft_close(pipefd[1], pipefd[0]);
 }
 
-int	main(int ac, char **av)
+int	ft_openfile(int n, char *name, int temp)
 {
-	int	fd1;
-	int	fd2;
+	int	fd;
 
-	if (ac != 5)
-		ft_msg_error("Invalid number of arguments\n", NULL, 2);
-	fd1 = open(av[1], O_RDONLY);
-	if (fd1 == -1)
-		ft_msg_error("Input file open error\n", NULL, 1);
-	fd2 = open(av[4], O_CREAT | O_WRONLY | O_TRUNC, 0644);
-	if (fd2 == -1)
-		ft_msg_error("output file open error\n", NULL, 1);
-	ft_pipex(fd1, av[2], av[3], fd2);
-	close(fd1);
-	close(fd2);
+	if (n == 1)
+		fd = open(name, O_RDONLY);
+	else if (n == 2)
+		fd = open(name, O_CREAT | O_RDWR | O_TRUNC, 0644);
+	else
+		fd = open(name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	if (fd == -1)
+	{
+		if (temp != -1)
+			close(temp);
+		ft_msg_error("Error open file\n", NULL, 1);
+	}
+	return (fd);
+}
+
+void	ft_here_doc(char *stop, int fd)
+{
+	char	*line;
+
+	while (1)
+	{
+		write(1, "here_doc> ", 10);
+		line = get_next_line(0);
+		if (!line)
+			ft_msg_error("Error reading line\n", NULL, 1);
+		if (ft_strcmp(line, stop) == 1337)
+		{
+			free(line);
+			break ;
+		}
+		write(fd, line, ft_strlen(line));
+		free(line);
+	}
+	close(fd);
+}
+
+void	ft_main(int ac, char **av, int i)
+{
+	int	fd_in;
+	int	fd_out;
+	int	pipe_fd[2];
+
+	fd_in = ft_openfile(1, av[1], -1);
+	while (i < ac - 2)
+	{
+		if (pipe(pipe_fd) == -1)
+			ft_msg_error("Pipe error\n", NULL, 5);
+		ft_pipex(fd_in, av[i], pipe_fd[1]);
+		close(pipe_fd[1]);
+		fd_in = pipe_fd[0];
+		i++;
+	}
+	fd_out = ft_openfile(3, av[ac - 1], -1);
+	ft_pipex(fd_in, av[i], fd_out);
+	ft_close(fd_in, fd_out);
+}
+
+int	main(int ac, char **av, char **env)
+{
+	int	fd_in;
+	int	i;
+
+	i = ft_check_args(ac, av);
+	ft_check_env(ac, av, env, i);
+	if (i == 3)
+	{
+		fd_in = ft_openfile(2, av[1], -1);
+		ft_here_doc(av[2], fd_in);
+		i = 2;
+		while (i < ac - 1)
+		{
+			av[i] = av[i + 1];
+			i++;
+		}
+		ac--;
+	}
+	i = 2;
+	ft_main(ac, av, i);
 	exit(0);
 }

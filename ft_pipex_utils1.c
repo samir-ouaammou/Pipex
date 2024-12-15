@@ -5,109 +5,87 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: souaammo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/13 21:48:57 by souaammo          #+#    #+#             */
-/*   Updated: 2024/12/13 21:49:00 by souaammo         ###   ########.fr       */
+/*   Created: 2024/12/15 16:19:36 by souaammo          #+#    #+#             */
+/*   Updated: 2024/12/15 16:19:38 by souaammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_pipex.h"
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+void	ft_msg_error(char *msg, char *error, int n)
 {
-	size_t	i;
-	size_t	size;
-	size_t	s_len;
-	char	*res;
-
-	if (!s)
-		return (NULL);
-	s_len = ft_strlen(s);
-	if (start >= s_len)
-		return (ft_strdup(""));
-	if (s_len - start < len)
-		size = s_len - start;
-	else
-		size = len;
-	res = (char *)malloc((size + 1) * sizeof(char));
-	if (!res)
-		return (NULL);
-	i = 0;
-	while (s[i] && i < size)
+	write(2, msg, ft_strlen(msg));
+	if (error)
 	{
-		res[i] = s[start + i];
+		write(2, error, ft_strlen(error));
+		write(2, "\n", 1);
+	}
+	exit(n);
+}
+
+void	free_split_array(char **args)
+{
+	int	i;
+
+	if (!args)
+		return ;
+	i = 0;
+	while (args[i])
+	{
+		free(args[i]);
 		i++;
 	}
-	res[i] = '\0';
-	return (res);
+	free(args);
 }
 
-int	ft_word_count(const char *str, char c)
+char	*ft_get_cmd_path(char *cmd)
 {
-	int		count;
-	size_t	i;
+	char	*cmd_path;
 
-	count = 0;
-	i = 0;
-	while (str[i])
-	{
-		while (str[i] && str[i] == c)
-			i++;
-		if (str[i])
-		{
-			count++;
-			while (str[i] && str[i] != c)
-				i++;
-		}
-	}
-	return (count);
-}
-
-void	*ft_free(char **str, int count)
-{
-	while (count > 0)
-	{
-		free(str[count - 1]);
-		count--;
-	}
-	free(str);
+	cmd_path = malloc(ft_strlen("/usr/bin/") + ft_strlen(cmd) + 1);
+	if (!cmd_path)
+		ft_msg_error("Malloc error\n", NULL, 4);
+	cmd_path[0] = '\0';
+	ft_strcat(cmd_path, "/usr/bin/");
+	ft_strcat(cmd_path, cmd);
+	if (access(cmd_path, F_OK | X_OK) == 0)
+		return (cmd_path);
+	free(cmd_path);
 	return (NULL);
 }
 
-char	**ft_split2(char **res, const char *s, char c)
+void	ft_run_cmd(char *cmd)
 {
-	size_t	i;
-	size_t	j;
-	size_t	h;
+	char	**args;
+	char	*path;
 
-	i = 0;
-	h = 0;
-	while (s[i])
+	args = ft_split(cmd, ' ');
+	if (!args)
+		ft_msg_error("Malloc error\n", NULL, 4);
+	path = ft_get_cmd_path(args[0]);
+	if (!path)
 	{
-		while (s[i] && s[i] == c)
-			i++;
-		if (s[i])
-		{
-			j = i;
-			while (s[i] && s[i] != c)
-				i++;
-			res[h] = ft_substr(s, j, i - j);
-			if (!res[h])
-				return (ft_free(res, h));
-			h++;
-		}
+		free_split_array(args);
+		ft_msg_error("Command not found: ", cmd, 127);
 	}
-	res[h] = NULL;
-	return (res);
+	if (execve(path, args, NULL) == -1)
+	{
+		free(path);
+		free_split_array(args);
+		ft_msg_error("Execve error\n", NULL, 9);
+	}
 }
 
-char	**ft_split(char const *s, char c)
+void	ft_check_env(int ac, char **av, char **env, int i)
 {
-	char	**res;
-
-	if (!s)
-		return (NULL);
-	res = (char **)malloc(sizeof(char *) * (ft_word_count(s, c) + 1));
-	if (!res)
-		return (NULL);
-	return (ft_split2(res, s, c));
+	if (*env != NULL)
+		return ;
+	while (i < ac - 1)
+	{
+		write(2, "Command not found: ", 19);
+		write(2, av[i], ft_strlen(av[i]));
+		write(2, "\n", 1);
+		i++;
+	}
+	exit(2);
 }
