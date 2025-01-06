@@ -68,6 +68,7 @@ Multiple Pipes (Multiple Commands):
 4. Pipes the final result to wc -l (to count the number of sorted lines).
 - Writes the final processed result to output.txt.
 
+---
 
 ## 🛠️ Installation
 
@@ -100,7 +101,7 @@ Multiple Pipes (Multiple Commands):
    ```bash
    make re
    ```
-
+---
 
 ## 🎯 Challenges Overcome
 Throughout this project, I encountered and overcame challenges such as:
@@ -108,21 +109,21 @@ Throughout this project, I encountered and overcame challenges such as:
 - Handling pipe communication and file descriptors.
 - Dealing with input/output redirection and the complexities of file handling.
 
-
+---
 
 ## 🏆 Key Achievements
 - Gained a deep understanding of process management in Unix-like systems.
 - Implemented an efficient pipe mechanism for inter-process communication.
 - Learned how to manage file descriptors and redirection in a shell-like environment.
 
-
+---
 
 ## 🚀 Next Steps
 With Pipex completed, I am now focused on:
 - Expanding my knowledge of advanced system programming and Linux internals.
 - Exploring other concepts in inter-process communication (IPC) and system calls.
 
-
+---
 
 🌟 Reflection
 The Pipex project was a challenging but rewarding experience. It helped me solidify my understanding of process management, pipes, and file handling in Unix-like systems. I am excited to apply these skills to more complex projects and continue my journey in system-level programming.
