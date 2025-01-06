@@ -1,4 +1,4 @@
-t# 🛠️ Pipex - 1337 School Project
+# 🛠️ Pipex - 1337 School Project
 
 Welcome to my **Pipex** repository! 🚀  
 The **Pipex** project is an essential part of the **1337 School** curriculum, where I implemented a pipeline mechanism in C to manage multiple processes, pipes, and redirection. This project focuses on system-level programming, process management, and the usage of system calls like `fork()`, `execve()`, and `pipe()`.
