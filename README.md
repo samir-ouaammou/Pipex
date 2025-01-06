@@ -55,7 +55,7 @@ Single Pipe (Two Commands):
 ```bash
 ./pipex input.txt "cat" "wc -l" output.txt
 ```
-This reads from input.txt, passes the content through cat, then pipes it to wc -l (to count the number of lines), and writes the result to output.txt.
+- This reads from input.txt, passes the content through cat, then pipes it to wc -l (to count the number of lines), and writes the result to output.txt.
 
 Multiple Pipes (Multiple Commands):
 ```bash
