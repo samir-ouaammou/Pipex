@@ -40,17 +40,34 @@ pipex/
 To use the program, compile it and run it with the following syntax:
 
 ```bash
-./pipex <file1> <cmd1> <cmd2> <file2>
+./pipex <file1> <cmd1> <cmd2> ... <cmdN> <file2>
 
-<file1>: The input file for the first command.
-<cmd1>:  The first command to be executed.
-<cmd2>:  The second command to be executed.
-<file2>: The output file where the result will be written.
+<file1>:            The input file for the first command.
+<cmd1>:             The first command to be executed.
+<cmd2> to <cmdN>:   The intermediate commands to be executed in sequence.
+<file2>:            The output file where the result of the last command will be written.
 ```
 Example usage:
-./pipex input.txt "cat" "grep search_term" output.txt
+```bash
+./pipex input.txt "cat" "grep search_term" "sort" "uniq -c" output.txt
+```
+Single Pipe (Two Commands):
+```bash
+./pipex input.txt "cat" "wc -l" output.txt
+```
+This reads from input.txt, passes the content through cat, then pipes it to wc -l (to count the number of lines), and writes the result to output.txt.
 
-This will read from input.txt, pass the content through cat, then pipe it to grep search_term, and write the result to output.txt.
+Multiple Pipes (Multiple Commands):
+```bash
+./pipex input.txt "cat" "grep error" "sort" "wc -l" output.txt
+```
+- This reads from input.txt, processes it through the following steps:
+1. Passes the content through cat.
+2. Pipes the output to grep error (to filter lines containing the word "error").
+3. Pipes the result to sort (to sort the filtered lines alphabetically).
+4. Pipes the final result to wc -l (to count the number of sorted lines).
+- Writes the final processed result to output.txt.
+
 
 ## 🛠️ Installation
 
