@@ -11,7 +11,7 @@
 # **************************************************************************** #
 
 FILES =	ft_pipex.c	ft_pipex_utils1.c	ft_pipex_utils2.c	ft_pipex_utils3.c\
-		get_next_line.c	get_next_line_utils.c
+	get_next_line.c	get_next_line_utils.c
 
 OBJS = $(FILES:.c=.o)
 
