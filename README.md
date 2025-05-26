@@ -79,7 +79,7 @@ Multiple Pipes (Multiple Commands):
 
 2. Navigate to the project directory:
    ```bash
-   cd 1337-Pipex/Projects
+   cd 1337-Pipex/Project
    ```
 
 3. Compile the source files using `make`:
