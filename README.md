@@ -74,12 +74,12 @@ Multiple Pipes (Multiple Commands):
 
 1. Clone the repository to your local machine:
    ```bash
-   git clone https://github.com/samir-ouaammou/1337-Pipex
+   git clone https://github.com/samir-ouaammou/Pipex
    ```
 
 2. Navigate to the project directory:
    ```bash
-   cd 1337-Pipex/Project
+   cd Pipex/Project
    ```
 
 3. Compile the source files using `make`:
